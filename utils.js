@@ -19,12 +19,26 @@ function inputBytes (input) {
 }
 
 function outputBytes (output) {
-  return TX_OUTPUT_BASE + (output.script ? output.script.length
-    : output.address?.startsWith('bc1') || output.address?.startsWith('tb1')
-      ? output.address?.length === 42 ? TX_OUTPUT_SEGWIT : TX_OUTPUT_SEGWIT_SCRIPTHASH
-      : output.address?.startsWith('3') || output.address?.startsWith('2')
-        ? TX_OUTPUT_SCRIPTHASH : TX_OUTPUT_PUBKEYHASH
-  )
+  let nBytes = TX_OUTPUT_BASE
+  if (output.script) {
+    nBytes += output.script.length
+  } else if (output.address) {
+    if (output.address.startsWith('bc1') || output.address.startsWith('tb1')) {
+      if (output.address.length === 42) {
+        nBytes += TX_OUTPUT_SEGWIT
+      } else {
+        nBytes += TX_OUTPUT_SEGWIT_SCRIPTHASH
+      }
+    } else if (output.address.startsWith('3') || output.address.startsWith('2')) {
+      nBytes += TX_OUTPUT_SCRIPTHASH
+    } else {
+      nBytes += TX_OUTPUT_PUBKEYHASH
+    }
+  } else {
+    nBytes += TX_OUTPUT_PUBKEYHASH
+  }
+
+  return nBytes
 }
 
 function dustThreshold (output, feeRate) {
