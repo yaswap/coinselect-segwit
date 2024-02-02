@@ -1,4 +1,4 @@
-# bitcoinselect
+# coinselect-segwit
 
 [![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
 
@@ -11,28 +11,28 @@ It supports precise calculation of fee for various type of input and output(`seg
 ## Install
 
 ```bash
-npm install bitcoinselect
+npm install coinselect-segwit
 ```
 
 ## Algorithms
 Module | Algorithm | Re-orders UTXOs?
 -|-|-
-`require('bitcoinselect')` | Blackjack, with Accumulative fallback | By Descending Value
-`require('bitcoinselect/accumulative')` | Accumulative - accumulates inputs until the target value (+fees) is reached, skipping detrimental inputs | -
-`require('bitcoinselect/blackjack')` | Blackjack - accumulates inputs until the target value (+fees) is matched, does not accumulate inputs that go over the target value (within a threshold) | -
-`require('bitcoinselect/break')` | Break - breaks the input values into equal denominations of `output` (as provided) | -
-`require('bitcoinselect/split')` | Split - splits the input values evenly between all `outputs`, any provided `output` with `.value` remains unchanged | -
+`require('coinselect-segwit')` | Blackjack, with Accumulative fallback | By Descending Value
+`require('coinselect-segwit/accumulative')` | Accumulative - accumulates inputs until the target value (+fees) is reached, skipping detrimental inputs | -
+`require('coinselect-segwit/blackjack')` | Blackjack - accumulates inputs until the target value (+fees) is matched, does not accumulate inputs that go over the target value (within a threshold) | -
+`require('coinselect-segwit/break')` | Break - breaks the input values into equal denominations of `output` (as provided) | -
+`require('coinselect-segwit/split')` | Split - splits the input values evenly between all `outputs`, any provided `output` with `.value` remains unchanged | -
 
 
 **Note:** Each algorithm will add a change output if the `input - output - fee` value difference is over a dust threshold.
 This is calculated independently by `utils.finalize`, irrespective of the algorithm chosen, for the purposes of safety.
 
-**Pro-tip:** if you want to send-all inputs to an output address, `bitcoinselect/split` with a partial output (`.address` defined, no `.value`) can be used to send-all, while leaving an appropriate amount for the `fee`. 
+**Pro-tip:** if you want to send-all inputs to an output address, `coinselect-segwit/split` with a partial output (`.address` defined, no `.value`) can be used to send-all, while leaving an appropriate amount for the `fee`. 
 
 ## Example
 
 ``` javascript
-let coinSelect = require('bitcoinselect')
+let coinSelect = require('coinselect-segwit')
 let feeRate = 55 // satoshis per byte
 let utxos = [
   ...,

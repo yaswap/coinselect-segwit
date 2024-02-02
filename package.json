@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A transaction input selection module for bitcoin.",
   "keywords": [
-    "bitcoinselect",
+    "coinselect-segwit",
     "coin",
     "unspents",
     "wallet",
